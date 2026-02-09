@@ -64,7 +64,7 @@ const images = [
   },
 ];
 
-const galleryElement = documnet.querySelector('.gallery');
+const galleryElement = document.querySelector('.gallery');
 
 const markup = images
   .map(
@@ -78,32 +78,28 @@ const markup = images
       alt="${description}"
     />
   </a>
-</li>`,
+</li>`
   )
     .join("");
   
-galleryEl.innerHTML = markup;
-
+galleryElement.innerHTML = markup;
 
 galleryElement.addEventListener('click', event => {
-  const link = event.target.closest('.gallery-link');
-  if (!link) return;
-
-      event.preventDefault();
-    
-const img = link.querySelector('.gallery-image');
-  const largeUrl = img?.dataset.source || link.getAttribute('href');
-
-    
-const gallery = document.querySelector('.gallery');
-
-gallery.addEventListener('click', event => {
   event.preventDefault();
 
   const img = event.target.closest('.gallery-image');
   if (!img) return;
 
-  const largeImgUrl = img.dataset.source;
-  console.log('Велике зображення:', largeImgUrl);
+  const largeUrl = img.dataset.source;
+
+  const instance = basicLightbox.create(`
+    <img src="${largeUrl}" width="900">
+  `);
+
+  instance.show();
 });
+
+
+
+
 
